@@ -75,10 +75,14 @@ class Temperatures2
 		double[] avgT = new double[nofWeeks + 1];
 		for (int week = 1; week <= nofWeeks; week++)
 		{
-			minT[week] = Arrays.stream(t[week]).min().orElse(week);// Arrays.stream() converts the array into a stream of doubles
-			maxT[week] = Arrays.stream(t[week]).max().orElse(week);// add code here
-			sumT[week] = Arrays.stream(t[week]).sum();// add code here
-            avgT[week] = sumT[week] / nofMeasurementsPerWeek;// add code here
+			minT[week] = min(t[week]);
+			//Arrays.stream(t[week]).min().orElse(week);// Arrays.stream() converts the array into a stream of doubles
+			maxT[week] = max(t[week]);
+			//Arrays.stream(t[week]).max().orElse(week);// add code here
+			sumT[week] = sum(t[week]);
+			//Arrays.stream(t[week]).sum();// add code here
+            avgT[week] = sumT[week] / nofMeasurementsPerWeek;
+			// add code here
 		}
 
 		// show the least, greatest and average temperatures
@@ -90,10 +94,13 @@ class Temperatures2
 		out.println();
 
 		// the least, greatest and average temperatures - whole period
-		double minTemp = Arrays.stream(minT).min().orElse(Double.NaN); //.orElse(Double.NaN) is used to provide a default value (NaN in this case) in case the array is empty
+		double minTemp = min(minT);
+		//Arrays.stream(minT).min().orElse(Double.NaN); //.orElse(Double.NaN) is used to provide a default value (NaN in this case) in case the array is empty
 		// add code here
-		double maxTemp = Arrays.stream(maxT).max().orElse(Double.NaN);// add code here
-		double sumTemp = Arrays.stream(sumT).sum();// add code here
+		double maxTemp = max(maxT);
+		//Arrays.stream(maxT).max().orElse(Double.NaN);// add code here
+		double sumTemp = sum(sumT);
+		//Arrays.stream(sumT).sum();// add code here
 		double avgTemp = sumTemp / (nofWeeks * nofMeasurementsPerWeek);// add code here
 
         // show the least, greatest and average temperature for
@@ -131,6 +138,21 @@ class Temperatures2
     // Temperatures are given from index 1, inclusive.
 	public static double min (double[] temp)
 	{
+		if (temp.length < 2)
+			throw new IllegalArgumentException("Array must have at least two elements");
+		double minM = temp[1];
+		for (int i = 2; i < temp.length; i++)
+			{
+				if (temp[i] < minM)
+				{
+					minM = temp[i];
+
+				}
+			}
+		return minM; 
+
+			
+
 		// add code here
 	}
 
@@ -138,6 +160,21 @@ class Temperatures2
     // Temperatures are given from index 1, inclusive.
 	public static double max (double[] temp)
 	{
+		if (temp.length < 2)
+			throw new IllegalArgumentException("Array must have at least two elements");
+		double maxM = temp[1];
+		for (int i = 2; i < temp.length; i++)
+		{
+			if (temp[i] > maxM)
+			{
+				maxM = temp[i];
+				
+			}
+
+		}
+		return maxM;
+
+
 		// add code here
 	}
 
@@ -145,6 +182,17 @@ class Temperatures2
     // Temperatures are given from index 1, inclusive.
 	public static double sum (double[] temp)
 	{
+		if (temp.length < 2)
+			throw new IllegalArgumentException("Array must have at least two elements");
+		double sumM = 0;
+		for (int i = 1; i < temp.length; i++)
+		{
+			sumM += temp [i];
+
+		}
+		return sumM;
+
 		// add code here
+
 	}
 }
