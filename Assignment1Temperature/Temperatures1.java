@@ -8,7 +8,7 @@
 A problem: processing measurement data
 
 Temperature measurements are taken in one and the same place for a couple
-of weeks. The measurements are taken regularly — the same number of
+of weeks. The measurements are taken regularly ï¿½ the same number of
 measurements each week. At the end of the measurement period the collected
 data is to be processed: for each week the least, the greatest and the
 average temperature is to be determined. The least, greatest and
@@ -28,9 +28,9 @@ Author: Fadil Galjic
 **********************************************************************/
 
 
-import java.util.*; // Scanner, Locale
-import static java.lang.System.out;
-
+import java.util.*; // Scanner, Locale use any class or interface from the java.util package in your code without having to specify each one individually.//
+import static java.lang.System.out; //  You can now use 'out' directly
+       // out.println("Hello, World!"); 
 class Temperatures1
 {
 	public static void main (String[] args)
@@ -73,11 +73,52 @@ class Temperatures1
 		out.println("");
 
 		// the least, greatest and average temperatures - weekly
-		double[] minT = new double[nofWeeks + 1];
+		double[] minT = new double[nofWeeks + 1]; //create array
 		double[] maxT = new double[nofWeeks + 1];
 		double[] sumT = new double[nofWeeks + 1];
 		double[] avgT = new double[nofWeeks + 1];
 		// add code here
+		double minT = t[1][1];
+		double maxT = t[1][1];
+		double sumT = t[1][1];
+		double avgT = 0;
+		for (int week = 1; week <= nofWeeks; week++)
+		{
+			for (int measurement = 1; 
+			measurement <= nofMeasurementsPerWeek; measurement++)
+			{
+				if (t[week][measurement] < minT)
+				{
+					minT = t[week][measurement];
+				}
+				
+			}
+		}
+		for (int week = 1; week <= nofWeeks; week++)
+		{
+			for (int measurement = 1; 
+			measurement <= nofMeasurementsPerWeek; measurement++)
+			{
+				if (t[week][measurement] > maxT)
+				{
+					maxT = t[week][measurement];
+				}
+
+			}
+				
+		}
+		for (int week = 1; week <= nofWeeks; week++)
+		{
+			for (int measurement = 1; 
+			measurement <= nofMeasurementsPerWeek; measurement++)
+			{
+				sumT += t[week][measurement + 1];
+				avgT = sumT / nofMeasurementsPerWeek;
+
+			}
+				
+		}
+
 
 		// show the least, greatest and average temperatures
 		out.println("the least, greatest and average temperatures"
@@ -99,6 +140,14 @@ class Temperatures1
 		double sumTemp = sumT[1];
 		double avgTemp = 0;
 		// add code here
+		for (int week = 1; week <= nofWeeks; week++)
+		{
+			if (minT[week] < minTemp)
+			{
+				minTemp = minT[week];
+			}
+			
+		}
 
         // show the least, greatest and average temperature for
         // the whole period
