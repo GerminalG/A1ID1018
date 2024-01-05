@@ -8,7 +8,7 @@
 A problem: processing measurement data
 
 Temperature readings are taken in one and the same place for a couple
-of weeks. The readings are taken regularly — the same number of
+of weeks. The readings are taken regularly ï¿½ the same number of
 readings each week. At the end of the measurement period the collected
 data is to be processed: for each week the least, the greatest and the
 average temperature is to be determined. The least, greatest and
@@ -28,7 +28,7 @@ Author: Fadil Galjic
 **********************************************************************/
 
 
-import java.util.*; // Scanner, Locale
+import java.util.*; // Scanner, Locale, Arrays
 import static java.lang.System.out;
 
 class Temperatures2
@@ -75,10 +75,10 @@ class Temperatures2
 		double[] avgT = new double[nofWeeks + 1];
 		for (int week = 1; week <= nofWeeks; week++)
 		{
-			minT[week] = // add code here
-			maxT[week] = // add code here
-			sumT[week] = // add code here
-            avgT[week] = // add code here
+			minT[week] = Arrays.stream(t[week]).min().orElse(week);// Arrays.stream() converts the array into a stream of doubles
+			maxT[week] = Arrays.stream(t[week]).max().orElse(week);// add code here
+			sumT[week] = Arrays.stream(t[week]).sum();// add code here
+            avgT[week] = sumT[week] / nofMeasurementsPerWeek;// add code here
 		}
 
 		// show the least, greatest and average temperatures
@@ -90,10 +90,11 @@ class Temperatures2
 		out.println();
 
 		// the least, greatest and average temperatures - whole period
-		double minTemp = // add code here
-		double maxTemp = // add code here
-		double sumTemp = // add code here
-		double avgTemp = // add code here
+		double minTemp = Arrays.stream(minT).min().orElse(Double.NaN); //.orElse(Double.NaN) is used to provide a default value (NaN in this case) in case the array is empty
+		// add code here
+		double maxTemp = Arrays.stream(maxT).max().orElse(Double.NaN);// add code here
+		double sumTemp = Arrays.stream(sumT).sum();// add code here
+		double avgTemp = sumTemp / (nofWeeks * nofMeasurementsPerWeek);// add code here
 
         // show the least, greatest and average temperature for
         // the whole period
@@ -112,6 +113,7 @@ class Temperatures2
 		for (int i = 1; i < temp.length; i++)
 			temp[i] = in.nextDouble();
 	}
+
 
     // print displays the temperatures in a specified array.
     // Temperatures are given from index 1, inclusive.
