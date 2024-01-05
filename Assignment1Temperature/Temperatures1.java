@@ -49,7 +49,7 @@ class Temperatures1
 
         // storage space for temperature data
         double[][] t = new double[nofWeeks + 1]
-                                 [nofMeasurementsPerWeek + 1];
+                                 [nofMeasurementsPerWeek + 1]; //create matrix
 
         // read the temperatures
 		for (int week = 1; week <= nofWeeks; week++)
@@ -60,6 +60,7 @@ class Temperatures1
 				t[week][measurement] = in.nextDouble();
 		}
 		out.println("");
+		in.close(); //Remember to close the in
 
 		// show the temperatures
 		out.println("the temperatures");
@@ -78,44 +79,53 @@ class Temperatures1
 		double[] sumT = new double[nofWeeks + 1];
 		double[] avgT = new double[nofWeeks + 1];
 		// add code here
-		double minT = t[1][1];
-		double maxT = t[1][1];
-		double sumT = t[1][1];
-		double avgT = 0;
+
+
 		for (int week = 1; week <= nofWeeks; week++)
 		{
+			double minD = t[week][1]; //Initialize min value to the first element in the row
 			for (int measurement = 1; 
 			measurement <= nofMeasurementsPerWeek; measurement++)
 			{
-				if (t[week][measurement] < minT)
+				if (t[week][measurement] < minD)
 				{
-					minT = t[week][measurement];
-				}
-				
-			}
-		}
-		for (int week = 1; week <= nofWeeks; week++)
-		{
-			for (int measurement = 1; 
-			measurement <= nofMeasurementsPerWeek; measurement++)
-			{
-				if (t[week][measurement] > maxT)
-				{
-					maxT = t[week][measurement];
+					minD = t[week][measurement];
 				}
 
 			}
+			minT[week] = minD; //Store the minimum value for the current row
+		}
+		for (int week = 1; week <= nofWeeks; week++)
+		{
+			double maxD = t[week][1];
+			for (int measurement = 1; 
+			measurement <= nofMeasurementsPerWeek; measurement++)
+			{
+				if (t[week][measurement] > maxD)
+				{
+					maxD = t[week][measurement];
+				}
+
+			}
+			maxT[week] = maxD;
 				
 		}
 		for (int week = 1; week <= nofWeeks; week++)
 		{
+			double weekSum = 0;
+
+			
 			for (int measurement = 1; 
 			measurement <= nofMeasurementsPerWeek; measurement++)
 			{
-				sumT += t[week][measurement + 1];
-				avgT = sumT / nofMeasurementsPerWeek;
+				weekSum += t[week][measurement];
 
 			}
+			sumT[week] = weekSum;
+			double avgD = weekSum / nofMeasurementsPerWeek;
+			avgT[week] = avgD;
+
+
 				
 		}
 
@@ -146,8 +156,13 @@ class Temperatures1
 			{
 				minTemp = minT[week];
 			}
+			if (maxT[week] > maxTemp)
+			{
+				maxTemp = maxT[week];
+			}
 			
 		}
+		avgTemp = (sumTemp + sumT[2]) / (nofWeeks * nofMeasurementsPerWeek);
 
         // show the least, greatest and average temperature for
         // the whole period
