@@ -146,14 +146,10 @@ class Temperatures2
 				if (temp[i] < minM)
 				{
 					minM = temp[i];
-
 				}
 			}
+
 		return minM; 
-
-			
-
-		// add code here
 	}
 
     // max returns the greatest temperature in a specified array.
